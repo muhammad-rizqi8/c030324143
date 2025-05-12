@@ -1,6 +1,11 @@
 #include <iostream>
 #include <conio.h>
+#include <vector>
+#include <algorithm>
 using namespace std;
+
+vector<int> dataArray; // Array dinamis global
+
 
 void info(){
   system("cls");
@@ -20,10 +25,22 @@ cout<<"Masukan angka :";
 }
 
 void mPertama(string pesan){
-system("cls");
-cout<<"hallo saya menu "<<pesan;
-getch();
+  system("cls");
+  cout<<"Hallo, saya menu "<<pesan;
+  getch();
 }
+
+// Menu 1: Masukkan nilai ke array
+void masukkanNilai() {
+  system("cls");
+  int nilai;
+  cout << "Masukkan nilai (angka): ";
+  cin >> nilai;
+  dataArray.push_back(nilai);
+  cout << "Nilai berhasil ditambahkan ke array.";
+  getch();
+}
+
 
 
 int main() {
