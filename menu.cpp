@@ -48,6 +48,19 @@ void masukkanNilai() {
   getch();
 }
 
+// Menu 2: Tampilkan array
+void tampilkanArray() {
+  system("cls");
+  if (dataArray.empty()) {
+    cout << "Array masih kosong.";
+  } else {
+    cout << "Isi array: ";
+    for (int val : dataArray)
+      cout << val << " ";
+  }
+  getch();
+}
+
 
 
 int main() {
