@@ -2,69 +2,52 @@
 #include <conio.h>
 #include <vector>
 #include <algorithm>
+#include <sstream> // Untuk stringstream
 using namespace std;
 
 vector<int> dataArray; // Array dinamis global
 
-
-void info(){
+void dMenu() {
   system("cls");
-  cout <<"indonesia Hebat , Poliban juara";
-  getch();
-}
-void dMenu(){
-system("cls");
-cout<<"Aplikasi Tampilan Menu"<<"\n";       
-cout<<"1. Menu Pertama"<<"\n";            
-cout<<"2. Menu Kedua"<<"\n";            
-cout<<"3. Menu Ketiga"<<"\n";           
-cout<<"4. Informasi"<<"\n";            
-cout<<"5. Exit"<<"\n";           
-cout<<"Masukan angka :";        
-
+  cout << "Aplikasi Tampilan Menu\n";
+  cout << "1. Masukkan nilai ke array\n";
+  cout << "2. Tampilkan array\n";
+  cout << "3. Sortir array\n";
+  cout << "4. Menampilkan info\n";
+  cout << "5. Exit\n";
+  cout << "Masukan angka: ";
 }
 
-void mPertama(string pesan){
+void mPertama(string pesan) {
   system("cls");
-  cout<<"Hallo, saya menu "<<pesan;
+  cout << "Hallo, saya menu " << pesan;
   getch();
 }
 
-// Menu 1: Masukkan nilai ke array
+// Menu 1: Masukkan nilai ke array (pakai input format 23-45-12)
 void masukkanNilai() {
   system("cls");
-  int nilai;
-  cout << "Masukkan nilai (angka): ";
-  cin >> nilai;
-  dataArray.push_back(nilai);
+  string input;
+  cout << "Masukkan nilai (angka), pisahkan dengan '-': ";
+  cin.ignore(); // Membersihkan buffer sebelum getline
+  getline(cin, input); // Baca seluruh baris
+
+  stringstream ss(input);
+  string token;
+
+  while (getline(ss, token, '-')) {
+    try {
+      int nilai = stoi(token); // ubah string ke int
+      dataArray.push_back(nilai);
+    } catch (...) {
+      cout << "Input tidak valid: " << token << "\n";
+    }
+  }
+
   cout << "Nilai berhasil ditambahkan ke array.";
   getch();
 }
 
-// Menu 2: Tampilkan array
-void tampilkanArray() {
-  system("cls");
-  if (dataArray.empty()) {
-    cout << "Array masih kosong.";
-  } else {
-    cout << "Isi array: ";
-    for (int val : dataArray)
-      cout << val << " ";
-  }
-  getch();
-}
-
-// Menu 3: Sortir array
-void sortirArray() {
-  system("cls");
-  if (dataArray.empty()) {
-    cout << "Array masih kosong. Tidak bisa disortir.";
-  } else {
-    sort(dataArray.begin(), dataArray.end());
-    cout << "Array berhasil diurutkan.";
-  }
-  getch();
-}
 
 
 int main() {
@@ -88,7 +71,7 @@ do
     /* code */
     break;  
    case '4': 
-    info();
+    mPertama("ke- empat");
     /* code */
     break;  
   case '5':
