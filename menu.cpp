@@ -86,41 +86,32 @@ void menampilkanInfo() {
 
 
 int main() {
-char pl;
-do
-{
+  char pl;
+  do {
     dMenu();
-    pl=getch();
-  switch (pl)
-  {
-   case '1':
-    /* code */
-    mPertama("pertama");
-    break;
-   case '2':
-    mPertama("ke- dua");
-    /* code */ 
-    break;  
-   case '3':
-    mPertama("ke- tiga");
-    /* code */
-    break;  
-   case '4': 
-    mPertama("ke- empat");
-    /* code */
-    break;  
-  case '5':
-    /* code */
-    break;
-  
-  default:
-    system("cls");
-    cout<<"Pilihan Tidak Tersedia";
-    getch();
-    break;
-  }
+    pl = getch();
+    switch (pl) {
+      case '1':
+        masukkanNilai();
+        break;
+      case '2':
+        tampilkanArray();
+        break;
+      case '3':
+        sortirArray();
+        break;
+      case '4':
+        menampilkanInfo();
+        break;
+      case '5':
+        break;
+      default:
+        system("cls");
+        cout << "Pilihan Tidak Tersedia";
+        getch();
+        break;
+    }
+  } while (pl != '5');
 
-
-} while (pl!='5');
   return 0;
 }
