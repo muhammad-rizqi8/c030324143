@@ -73,6 +73,17 @@ void sortirArray() {
   getch();
 }
 
+// Menu 4: Menampilkan info
+void menampilkanInfo() {
+  system("cls");
+  cout << "Jumlah elemen dalam array: " << dataArray.size() << "\n";
+  if (!dataArray.empty()) {
+    cout << "Nilai terkecil: " << *min_element(dataArray.begin(), dataArray.end()) << "\n";
+    cout << "Nilai terbesar: " << *max_element(dataArray.begin(), dataArray.end()) << "\n";
+  }
+  getch();
+}
+
 
 int main() {
 char pl;
