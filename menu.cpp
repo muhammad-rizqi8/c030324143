@@ -61,6 +61,17 @@ void tampilkanArray() {
   getch();
 }
 
+// Menu 3: Sortir array
+void sortirArray() {
+  system("cls");
+  if (dataArray.empty()) {
+    cout << "Array masih kosong. Tidak bisa disortir.";
+  } else {
+    sort(dataArray.begin(), dataArray.end());
+    cout << "Array berhasil diurutkan.";
+  }
+  getch();
+}
 
 
 int main() {
