@@ -1,89 +1,103 @@
 #include <iostream>
 #include <conio.h>
-#include <vector>
-#include <algorithm>
-#include <sstream> // Untuk stringstream
 using namespace std;
 
-vector<int> dataArray; // Array dinamis global
+const int MAKS = 100;
+int dataArray[MAKS];
+int jumlahData = 0;
+
 
 void dMenu() {
-  system("cls");
-  cout << "Aplikasi Tampilan Menu\n";
-  cout << "1. Masukkan nilai ke array\n";
-  cout << "2. Tampilkan array\n";
-  cout << "3. Sortir array\n";
-  cout << "4. Menampilkan info\n";
-  cout << "5. Exit\n";
-  cout << "Masukan angka: ";
+    system("cls");
+    cout << "Aplikasi Tampilan Menu\n";
+    cout << "1. Masukkan nilai ke array\n";
+    cout << "2. Tampilkan array\n";
+    cout << "3. Sortir array\n";
+    cout << "4. Menampilkan info\n";
+    cout << "5. Exit\n";
+    cout << "Masukan angka: ";
 }
 
-void mPertama(string pesan) {
-  system("cls");
-  cout << "Hallo, saya menu " << pesan;
-  getch();
+void mPertama(const char* pesan) {
+    system("cls");
+    cout << "Hallo, saya menu " << pesan;
+    getch();
 }
 
-// Menu 1: Masukkan nilai ke array (pakai input format 23-45-12)
+// Menu 1: Masukkan nilai ke array 
 void masukkanNilai() {
-  system("cls");
-  string input;
-  cout << "Masukkan nilai (angka), pisahkan dengan '-': ";
-  cin.ignore(); // Membersihkan buffer sebelum getline
-  getline(cin, input); // Baca seluruh baris
+    system("cls");
+    int n;
+    cout << "Berapa banyak angka yang ingin dimasukkan? ";
+    cin >> n;
 
-  stringstream ss(input);
-  string token;
-
-  while (getline(ss, token, '-')) {
-    try {
-      int nilai = stoi(token); // ubah string ke int
-      dataArray.push_back(nilai);
-    } catch (...) {
-      cout << "Input tidak valid: " << token << "\n";
+    if (jumlahData + n > MAKS) {
+        cout << "Jumlah melebihi kapasitas array (maks " << MAKS << ").";
+    } else {
+        for (int i = 0; i < n; i++) {
+            cout << "Masukkan angka ke-" << (i + 1) << ": ";
+            cin >> dataArray[jumlahData++];
+        }
+        cout << "Nilai berhasil ditambahkan ke array.";
     }
-  }
-
-  cout << "Nilai berhasil ditambahkan ke array.";
-  getch();
+    getch();
 }
 
 // Menu 2: Tampilkan array
 void tampilkanArray() {
-  system("cls");
-  if (dataArray.empty()) {
-    cout << "Array masih kosong.";
-  } else {
-    cout << "Isi array: ";
-    for (int val : dataArray)
-      cout << val << " ";
-  }
-  getch();
+    system("cls");
+    if (jumlahData == 0) {
+        cout << "Array masih kosong.";
+    } else {
+        cout << "Isi array: ";
+        for (int i = 0; i < jumlahData; i++)
+            cout << dataArray[i] << " ";
+    }
+    getch();
 }
 
-// Menu 3: Sortir array
+// Menu 3: Sortir array secara ASCENDING tanpa fungsi tukar
 void sortirArray() {
-  system("cls");
-  if (dataArray.empty()) {
-    cout << "Array masih kosong. Tidak bisa disortir.";
-  } else {
-    sort(dataArray.begin(), dataArray.end());
-    cout << "Array berhasil diurutkan.";
-  }
-  getch();
+    system("cls");
+    if (jumlahData == 0) {
+        cout << "Array masih kosong. Tidak bisa disortir.";
+    } else {
+        for (int i = 0; i < jumlahData - 1; i++) {
+            int pos = i;
+            for (int j = i + 1; j < jumlahData; j++) {
+                if (dataArray[j] < dataArray[pos]) // ascending
+                    pos = j;
+            }
+            if (pos != i) {
+                // Pertukaran langsung tanpa fungsi tukar
+                int temp = dataArray[pos];
+                dataArray[pos] = dataArray[i];
+                dataArray[i] = temp;
+            }
+        }
+        cout << "Array berhasil diurutkan secara ascending.";
+    }
+    getch();
 }
 
 // Menu 4: Menampilkan info
 void menampilkanInfo() {
-  system("cls");
-  cout << "Jumlah elemen dalam array: " << dataArray.size() << "\n";
-  if (!dataArray.empty()) {
-    cout << "Nilai terkecil: " << *min_element(dataArray.begin(), dataArray.end()) << "\n";
-    cout << "Nilai terbesar: " << *max_element(dataArray.begin(), dataArray.end()) << "\n";
-  }
-  getch();
+    system("cls");
+    cout << "Jumlah elemen dalam array: " << jumlahData << "\n";
+    if (jumlahData > 0) {
+        int terkecil = dataArray[0];
+        int terbesar = dataArray[0];
+        for (int i = 1; i < jumlahData; i++) {
+            if (dataArray[i] < terkecil)
+                terkecil = dataArray[i];
+            if (dataArray[i] > terbesar)
+                terbesar = dataArray[i];
+        }
+        cout << "Nilai terkecil: " << terkecil << "\n";
+        cout << "Nilai terbesar: " << terbesar << "\n";
+    }
+    getch();
 }
-
 
 int main() {
   char pl;
